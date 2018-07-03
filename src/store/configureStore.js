@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import rootEpic from './rootEpic';
 import rootReducer from './rootReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export default function configureStore() {
   // Initialize the redux-observable epics
@@ -11,6 +12,6 @@ export default function configureStore() {
   // Initialize the redux store with middleware
   return createStore(
     rootReducer,
-    applyMiddleware(epicMiddleware)
+    composeWithDevTools(applyMiddleware(epicMiddleware))
   );
 }
