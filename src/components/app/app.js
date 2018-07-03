@@ -16,7 +16,8 @@ import  {
   DevicesContainer as DevicesPage,
   RulesContainer as RulesPage,
   MaintenanceContainer as MaintenancePage,
-  PageNotFoundContainer as PageNotFound
+  PageNotFoundContainer as PageNotFound,
+  ReportContainer as Report,
 } from 'components/pages';
 
 import { svgs } from 'utilities';
@@ -28,7 +29,8 @@ const dashboardTab   = { to: '/dashboard',   svg: svgs.tabs.dashboard,   labelId
 const devicesTab     = { to: '/devices',     svg: svgs.tabs.devices,     labelId: 'tabs.devices' };
 const rulesTab       = { to: '/rules',       svg: svgs.tabs.rules,       labelId: 'tabs.rules' };
 const maintenanceTab = { to: '/maintenance', svg: svgs.tabs.maintenance, labelId: 'tabs.maintenance' };
-const tabConfigs = [ dashboardTab, devicesTab, rulesTab, maintenanceTab ];
+const reportTab      = { to: '/report',      svg: svgs.tabs.report,      labelId: 'report' };
+const tabConfigs = [ dashboardTab, devicesTab, rulesTab, maintenanceTab, reportTab ];
 
 /** The base component for the app */
 class App extends Component {
@@ -62,6 +64,7 @@ class App extends Component {
               <Route exact path={devicesTab.to} component={DevicesPage} />
               <Route exact path={rulesTab.to} component={RulesPage} />
               <Route path={maintenanceTab.to} component={MaintenancePage} />
+              <Route path={reportTab.to} component={Report} />
               <Route component={PageNotFound} />
             </Switch>
             { this.props.deviceGroupFlyoutIsOpen && <ManageDeviceGroupsContainer /> }

@@ -52,6 +52,7 @@ import TrashIconPath from 'assets/icons/trash.svg';
 import UploadIconPath from 'assets/icons/upload.svg';
 import WarningIconPath from 'assets/icons/warning.svg';
 import XIconPath from 'assets/icons/x.svg';
+import ReportIconPath from 'assets/icons/report.svg';
 
 /** A helper object mapping svg names to their paths */
 export const svgs = {
@@ -59,7 +60,8 @@ export const svgs = {
     dashboard: TabDashboardIconPath,
     devices: TabDevicesIconPath,
     maintenance: TabMaintenanceIconPath,
-    rules: TabRulesIconPath
+    rules: TabRulesIconPath,
+    report: ReportIconPath
   },
   devices: {
     generic: DeviceGenericIconPath,
