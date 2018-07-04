@@ -19,6 +19,7 @@ import {
   getError
 } from 'store/utilities';
 import { svgs, compareByProperty } from 'utilities';
+import testData from './../../testData';
 
 // ========================= Epics - START
 const handleError = fromAction => error =>
@@ -32,7 +33,8 @@ export const epics = createEpicScenario({
       epics.actions.fetchAzureMapsKey(),
       epics.actions.fetchDeviceGroups(),
       epics.actions.fetchLogo(),
-      epics.actions.fetchReleaseInformation()
+      epics.actions.fetchReleaseInformation(),
+      epics.actions.fetchTestData()
     ]
   },
 
@@ -98,6 +100,15 @@ export const epics = createEpicScenario({
       GitHubService.getReleaseInfo()
         .map(toActionCreator(redux.actions.getReleaseInformation, fromAction))
         .catch(handleError(fromAction))
+  },
+
+  /** Fetch test data */
+  fetchTestData: {
+    type: 'APP_FETCH_TEST_DATA',
+    epic: fromAction => new Promise(resolve => {
+        // Imitate network delay
+        setTimeout(() => resolve(testData), 3000);
+      }).then(res => toActionCreator(redux.actions.getTestData, fromAction)(res))
   }
 });
 // ========================= Epics - END
@@ -176,13 +187,18 @@ const setDeviceGroupFlyoutReducer = (state, { payload }) => update(state, {
   deviceGroupFlyoutIsOpen: { $set: !!payload }
 });
 
+const getTestDataReducer = (state, { payload }) => update(state,
+  { testData: { $set: payload }
+});
+
 /* Action types that cause a pending flag */
 const fetchableTypes = [
   epics.actionTypes.fetchDeviceGroups,
   epics.actionTypes.fetchDeviceGroupFilters,
   epics.actionTypes.fetchAzureMapsKey,
   epics.actionTypes.updateLogo,
-  epics.actionTypes.fetchLogo
+  epics.actionTypes.fetchLogo,
+  epics.actionTypes.fetchTestData
 ];
 
 export const redux = createReducerScenario({
@@ -197,7 +213,8 @@ export const redux = createReducerScenario({
   updateLogo: { type: 'APP_UPDATE_LOGO', reducer: logoReducer },
   getReleaseInformation: { type: 'APP_GET_VERSION', reducer: releaseReducer },
   setDeviceGroupFlyoutStatus: { type: 'APP_SET_DEVICE_GROUP_FLYOUT_STATUS', reducer: setDeviceGroupFlyoutReducer },
-  updateTimeInterval: { type: 'APP_UPDATE_TIME_INTERVAL', reducer: updateTimeInterval }
+  updateTimeInterval: { type: 'APP_UPDATE_TIME_INTERVAL', reducer: updateTimeInterval },
+  getTestData: { type: 'APP_GET_TEST_DATA', reducer: getTestDataReducer },
 });
 
 export const reducer = { app: redux.getReducer(initialState) };
