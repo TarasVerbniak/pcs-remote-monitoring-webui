@@ -1,0 +1,11 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+@import 'src/styles/themes';
+
+.report-container {
+  padding: $baseContentPadding;
+
+  h1 {
+    margin-top: 0;
+  }
+}

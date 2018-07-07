@@ -132,7 +132,12 @@ const initialState = {
   isDefaultLogo: true,
   azureMapsKey: '',
   deviceGroupFlyoutIsOpen: false,
-  timeInterval: 'PT1H'
+  timeInterval: 'PT1H',
+  reportDevice: {
+    id: null,
+    measurement: null,
+    node: null
+  }
 };
 
 const updateDeviceGroupsReducer = (state, { payload, fromAction }) => {
@@ -191,6 +196,10 @@ const getTestDataReducer = (state, { payload }) => update(state,
   { testData: { $set: payload }
 });
 
+const updateReportDeviceReducer = (state, { payload }) => update(state,
+  { reportDevice: { id: { $set: payload } }
+});
+
 /* Action types that cause a pending flag */
 const fetchableTypes = [
   epics.actionTypes.fetchDeviceGroups,
@@ -215,6 +224,7 @@ export const redux = createReducerScenario({
   setDeviceGroupFlyoutStatus: { type: 'APP_SET_DEVICE_GROUP_FLYOUT_STATUS', reducer: setDeviceGroupFlyoutReducer },
   updateTimeInterval: { type: 'APP_UPDATE_TIME_INTERVAL', reducer: updateTimeInterval },
   getTestData: { type: 'APP_GET_TEST_DATA', reducer: getTestDataReducer },
+  updateReportDevice: { type: 'APP_UPDATE_REPORT_DEVICE', reducer: updateReportDeviceReducer },
 });
 
 export const reducer = { app: redux.getReducer(initialState) };
@@ -264,4 +274,29 @@ export const getLogoPendingStatus = state =>
   getPending(getAppReducer(state), epics.actionTypes.fetchLogo);
 
 export const getTimeInterval = state => getAppReducer(state).timeInterval;
+export const getTestData = state => (getAppReducer(state).testData || {});
+export const getReportDevice = state => getAppReducer(state).reportDevice;
+
+export const getReportDevices = createSelector(getTestData, data => (!data || !data.stations) ? [] : Object.keys(data.stations));
+export const getReportCurrentDeviceId = state => getReportDevice(state).id || (getReportDevices(state)[0] || null);
+export const getReportDeviceMeasurements = createSelector([getReportCurrentDeviceId, getTestData], (id, data) => {
+  if (!data || !data.stations || !id) return ['ogo'];
+  return Object.keys(data.stations[id].measurements);
+});
+export const getReportCurrentDeviceMeasurement = state => {
+  let measurement = getReportDevice(state).measurement;
+  if (measurement) return measurement;
+
+  return getReportDeviceMeasurements(state)[0];
+};
+export const getReportDeviceNodes = createSelector([getReportCurrentDeviceId, getReportCurrentDeviceMeasurement, getTestData], (id, time, data) => {
+  return Object.keys(data.stations[id].measurements[time].nodes);
+});
+export const getReportCurrentDeviceNode = state => {
+  let node = getReportDevice(state).node;
+  if (node) return node;
+
+  return getReportDeviceNodes(state)[0];
+};
+
 // ========================= Selectors - END
