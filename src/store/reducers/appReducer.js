@@ -196,8 +196,29 @@ const getTestDataReducer = (state, { payload }) => update(state,
   { testData: { $set: payload }
 });
 
-const updateReportDeviceReducer = (state, { payload }) => update(state,
-  { reportDevice: { id: { $set: payload } }
+const updateReportDeviceReducer = (state, { payload }) => {
+  const firstMeasurement = Object.keys(state.testData.stations[payload].measurements)[0];
+  const firstNode = Object.keys(state.testData.stations[payload].measurements[firstMeasurement].nodes)[0];
+
+  return update(state,
+    { reportDevice: {
+      id: { $set: payload},
+      measurement: { $set: firstMeasurement },
+      node: { $set: firstNode }
+    }
+  });
+};
+
+const updateReportMeasurementReducer = (state, { payload }) => update(state,
+  { reportDevice: {
+    measurement: { $set: payload }
+  }
+});
+
+const updateReportNodeReducer = (state, { payload }) => update(state,
+  { reportDevice: {
+    node: { $set: payload}
+  }
 });
 
 /* Action types that cause a pending flag */
@@ -225,6 +246,8 @@ export const redux = createReducerScenario({
   updateTimeInterval: { type: 'APP_UPDATE_TIME_INTERVAL', reducer: updateTimeInterval },
   getTestData: { type: 'APP_GET_TEST_DATA', reducer: getTestDataReducer },
   updateReportDevice: { type: 'APP_UPDATE_REPORT_DEVICE', reducer: updateReportDeviceReducer },
+  updateReportMeasurement: { type: 'APP_UPDATE_REPORT_MEASUREMENT', reducer: updateReportMeasurementReducer },
+  updateReportNode: { type: 'APP_UPDATE_REPORT_NODE', reducer: updateReportNodeReducer },
 });
 
 export const reducer = { app: redux.getReducer(initialState) };

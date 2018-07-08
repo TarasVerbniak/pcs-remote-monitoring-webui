@@ -1,7 +1,6 @@
 /**
  * 1) Data structure can be different, lets assume measurement is running for all nodes
  *    at the same time but differently for each station, thus we can save nodes inside each timestamp
- * 2)
  */
 
 const data = {
