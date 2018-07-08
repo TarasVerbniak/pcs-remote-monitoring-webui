@@ -8,8 +8,6 @@ import {
   getReportCurrentDeviceMeasurement,
   getReportDeviceNodes,
   getReportCurrentDeviceNode,
-  updateReportMeasurement,
-  updateReportNode,
   getTestData
 } from 'store/reducers/appReducer';
 

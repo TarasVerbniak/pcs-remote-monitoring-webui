@@ -45,8 +45,7 @@ export default class ReportSelection extends Component {
       reportNodes,
       updateReportDevice,
       updateReportMeasurement,
-      updateReportNode,
-      testData
+      updateReportNode
     } = this.props;
 
     return (

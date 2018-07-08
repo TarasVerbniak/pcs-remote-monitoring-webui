@@ -8,4 +8,24 @@
   h1 {
     margin-top: 0;
   }
+
+  .report-data {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 1200px) {
+  .report-data {
+    display: block !important;
+
+    .report-box {
+      width: 100% !important;
+
+      &:nth-child(2) {
+        margin-top: 20px !important;
+      }
+    }
+  }
 }

@@ -3,7 +3,6 @@
 @import 'src/styles/themes';
 
 .report-selection-container {
-  height: 100px;
   background-color: $colorMidnight;
   border: 1px solid $colorLead;
   display: flex;
@@ -14,6 +13,7 @@
     margin: 20px !important;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     .report-selection {
       .Select-control {

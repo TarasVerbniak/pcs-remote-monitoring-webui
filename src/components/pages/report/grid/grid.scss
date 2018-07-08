@@ -1,0 +1,14 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+@import 'src/styles/themes';
+
+.report-box {
+  display: block;
+  background-color: $colorMidnight;
+  height: 450px;
+
+  .report-box-header {
+    background-color: $colorCharcoal;
+    padding: 10px 20px;
+  }
+}

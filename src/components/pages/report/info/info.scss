@@ -1,0 +1,11 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+@import 'src/styles/themes';
+
+table {
+  tr {
+    td {
+      padding: 10px 20px;
+    }
+  }
+}
