@@ -3,5 +3,40 @@
 @import 'src/styles/themes';
 
 .report-selection-container {
+  height: 100px;
   background-color: $colorMidnight;
+  border: 1px solid $colorLead;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .report-selection-wraper {
+    margin: 20px !important;
+    display: flex;
+    align-items: center;
+
+    .report-selection {
+      .Select-control {
+        height: 40px;
+        background-color: #1b1d1f !important;
+        .Select-input {
+          top: 5px;
+        }
+      }
+    }
+
+    .report-selection-divider {
+      width: 1px;
+      height: 68px;
+      background-color: $colorLead;
+      margin: 0 10px;
+    }
+
+    .btn-blue {
+      min-width: 70px;
+      width: 70px;
+      height: 30px;
+      background-color: #4086F5;
+    }
+  }
 }

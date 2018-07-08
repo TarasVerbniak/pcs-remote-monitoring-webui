@@ -280,7 +280,7 @@ export const getReportDevice = state => getAppReducer(state).reportDevice;
 export const getReportDevices = createSelector(getTestData, data => (!data || !data.stations) ? [] : Object.keys(data.stations));
 export const getReportCurrentDeviceId = state => getReportDevice(state).id || (getReportDevices(state)[0] || null);
 export const getReportDeviceMeasurements = createSelector([getReportCurrentDeviceId, getTestData], (id, data) => {
-  if (!data || !data.stations || !id) return ['ogo'];
+  if (!data || !data.stations || !id) return [];
   return Object.keys(data.stations[id].measurements);
 });
 export const getReportCurrentDeviceMeasurement = state => {
@@ -290,6 +290,7 @@ export const getReportCurrentDeviceMeasurement = state => {
   return getReportDeviceMeasurements(state)[0];
 };
 export const getReportDeviceNodes = createSelector([getReportCurrentDeviceId, getReportCurrentDeviceMeasurement, getTestData], (id, time, data) => {
+  if (!data || !data.stations || !id) return [];
   return Object.keys(data.stations[id].measurements[time].nodes);
 });
 export const getReportCurrentDeviceNode = state => {
