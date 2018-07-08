@@ -48,7 +48,6 @@ export default class ReportSelection extends Component {
       updateReportNode,
       testData
     } = this.props;
-    const data = reportCurrentDeviceId && reportCurrentMeasurement && reportCurrentNode && testData.stations[reportCurrentDeviceId].measurements[reportCurrentMeasurement].nodes[reportCurrentNode];
 
     return (
       <div className="report-selection-container">
